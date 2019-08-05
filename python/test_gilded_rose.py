@@ -68,8 +68,6 @@ class GildedRoseTest(unittest.TestCase):
         item = Item("Sulfuras helmet of cranial blade deflection", 5, 10)
         gilded_rose = GildedRose([item])
         item = gilded_rose.inspect_item(item)
-        print(item)
-        print("testMarker")
         self.assertEquals(LegendaryItem, item.__class__)
 
 if __name__ == '__main__':
