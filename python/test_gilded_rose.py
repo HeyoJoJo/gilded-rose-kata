@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from gilded_rose import Item, GildedRose
+from gilded_rose import Item, GildedRose, CommonItem
 
 class GildedRoseTest(unittest.TestCase):
     def test_foo(self):
@@ -33,6 +33,10 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose = GildedRose(items)
         gilded_rose.decrease_quality(items[0], 5)
         self.assertEquals(5, items[0].quality)
+
+    def test_can_create_common_item(self):
+        items = [CommonItem("Health Potion(medium)"), 10, 10]
+        self.assertEquals(CommonItem.__class__, type items[0])
 
 if __name__ == '__main__':
     unittest.main()
