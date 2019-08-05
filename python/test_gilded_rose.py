@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from gilded_rose import Item, GildedRose, CommonItem, AgedItem, TicketItem
+from gilded_rose import Item, GildedRose, CommonItem, AgedItem, TicketItem, LegendaryItem
 
 class GildedRoseTest(unittest.TestCase):
+
     def test_foo(self):
         items = [Item("foo", 0, 0)]
         gilded_rose = GildedRose(items)
@@ -44,13 +45,18 @@ class GildedRoseTest(unittest.TestCase):
         items = [CommonItem("Health Potion(medium)", 10, 10)]
         self.assertEquals(CommonItem, items[0].__class__)
 
-    def test_can_create_aged_item(self):
+    def test_can_create_aged_item(self):        
         items = [AgedItem("Aged Brie", 10, 10)]
         self.assertEquals(AgedItem, items[0].__class__)
 
     def test_can_create_ticket_item(self):
         items = [TicketItem("Backstage passes to DragonForce", 10, 10)]
         self.assertEquals(TicketItem, items[0].__class__)
+
+
+    def test_can_create_legendary_item(self):
+        items = [LegendaryItem("Greatsword of Bigness", 10, 10)]
+        self.assertEquals(LegendaryItem, items[0].__class__)
 
 if __name__ == '__main__':
     unittest.main()
