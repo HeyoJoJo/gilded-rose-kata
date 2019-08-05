@@ -57,7 +57,8 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEquals(AgedItem, items[0].__class__)
 
     def test_can_create_ticket_item(self):
-        items = [TicketItem("Backstage passes to DragonForce", 10, 10)]
+        base_item = Item("Backstage passes to DragonForce", 10, 10)
+        items = [TicketItem(base_item)]
         self.assertEquals(TicketItem, items[0].__class__)
 
     def test_can_create_legendary_item(self):
@@ -76,6 +77,12 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose = GildedRose([item])
         item = gilded_rose.inspect_item(item)
         self.assertEquals(AgedItem, item.__class__)
+
+    def test_inspect_item_can_identify_ticket_item(self):
+        item = Item("Backstage passes to William of Pump", 5, 10)
+        gilded_rose = GildedRose([item])
+        item = gilded_rose.inspect_item(item)
+        self.assertEquals(TicketItem, item.__class__)
 
 if __name__ == '__main__':
     unittest.main()
