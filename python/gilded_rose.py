@@ -9,6 +9,9 @@ class GildedRose(object):
         print("adding quality to " + item.name)
         item.quality += amount
 
+    def decrease_quality(self, item, amount = 1):
+        print("decreasing quality of " + item.name)
+        item.quality -= amount
 
     def update_quality(self):
         for item in self.items:

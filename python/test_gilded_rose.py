@@ -22,5 +22,17 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.add_quality(items[0], 5)
         self.assertEquals(5, items[0].quality)
 
+    def test_remove_quality_default(self):
+        items = [Item("foo", 0, 10)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.decrease_quality(items[0])
+        self.assertEquals(9, items[0].quality)
+
+    def test_remove_quality_default(self):
+        items = [Item("foo", 0, 10)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.decrease_quality(items[0], 5)
+        self.assertEquals(5, items[0].quality)
+
 if __name__ == '__main__':
     unittest.main()
