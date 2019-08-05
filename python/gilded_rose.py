@@ -26,8 +26,26 @@ class Item:
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
 
+class CommonItem(Item):
+    def __init__(self, name, sell_in, quality):
+    self.name = name
+    self.sell_in = sell_in
+    self.quality = quality
+
 class AppreciatingItem(Item):
     def __init__(self, name, sell_in, quality):
         self.name = name
         self.sell_in = sell_in
         self.quality = quality
+
+class ConjuredItem(Item):
+    def __init__(self, name, sell_in, quality):
+        self.name = name
+        self.sell_in = sell_in
+        self.quality = quality
+
+class TicketItem(Item):
+    def __init__(self, name, sell_in, quality):
+    self.name = name
+    self.sell_in = sell_in
+    self.quality = quality
