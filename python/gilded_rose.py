@@ -10,6 +10,10 @@ class GildedRose(object):
         if 'Sulfuras' in item.name:
             print("Legendary gear!")
             return LegendaryItem(item)
+        
+        if 'Aged' in item.name:
+            print("Aged Item!")
+            return AgedItem(item)
 
         # if 'Backstage' in item.name:
         #     print("Backstage pass to a show!")
@@ -58,10 +62,10 @@ class CommonItem(Item):
         self.quality = quality
 
 class AgedItem(Item):
-    def __init__(self, name, sell_in, quality):
-        self.name = name
-        self.sell_in = sell_in
-        self.quality = quality
+    def __init__(self, item):
+        self.name = item.name
+        self.sell_in = item.sell_in
+        self.quality = item.quality
 
 class ConjuredItem(Item):
     def __init__(self, name, sell_in, quality):

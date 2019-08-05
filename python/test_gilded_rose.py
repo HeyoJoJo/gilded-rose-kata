@@ -51,8 +51,9 @@ class GildedRoseTest(unittest.TestCase):
         items = [CommonItem("Health Potion(medium)", 10, 10)]
         self.assertEquals(CommonItem, items[0].__class__)
 
-    def test_can_create_aged_item(self):        
-        items = [AgedItem("Aged Brie", 10, 10)]
+    def test_can_create_aged_item(self):
+        base_item = Item("Aged Brie", 10, 10)       
+        items = [AgedItem(base_item)]
         self.assertEquals(AgedItem, items[0].__class__)
 
     def test_can_create_ticket_item(self):
@@ -69,6 +70,12 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose = GildedRose([item])
         item = gilded_rose.inspect_item(item)
         self.assertEquals(LegendaryItem, item.__class__)
+
+    def test_inspect_item_can_identify_Aged_item(self):
+        item = Item("Aged cheese of eating", 5, 10)
+        gilded_rose = GildedRose([item])
+        item = gilded_rose.inspect_item(item)
+        self.assertEquals(AgedItem, item.__class__)
 
 if __name__ == '__main__':
     unittest.main()
