@@ -10,17 +10,23 @@ class GildedRose(object):
         item.quality += amount
         if(item.quality > 50):
             item.quality = 50
+        print("quality of " + item.name + " is now " + str(item.quality))
 
     def decrease_quality(self, item, amount = 1):
         print("decreasing quality of " + item.name + " by " + str(amount))
         item.quality -= amount
+        if(item.quality < 0):
+            item.quality = 0
+        print("quality of " + item.name + " is now " + str(item.quality))
 
     def update_quality(self):
         # Main event loop
         for item in self.items:
             print(item)
         # TODO: Lots of routing
-            
+
+
+#### CLASS DECS
 class Item:
     def __init__(self, name, sell_in, quality):
         self.name = name
@@ -55,7 +61,7 @@ class TicketItem(AgedItem):
         self.quality = quality
 
 class LegendaryItem(Item):
-    def __init__(self, name, sell_in, quality):
+    def __init__(self, name, sell_in):
         self.name = name
         self.sell_in = sell_in
-        self.quality = quality
+        self.quality = 80

@@ -41,6 +41,12 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.decrease_quality(items[0], 5)
         self.assertEquals(5, items[0].quality)
 
+    def test_remove_quality_non_default_amount(self):
+        items = [Item("Completely rotten apple", 0, 2)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.decrease_quality(items[0], 50)
+        self.assertEquals(0, items[0].quality)
+
     def test_can_create_common_item(self):
         items = [CommonItem("Health Potion(medium)", 10, 10)]
         self.assertEquals(CommonItem, items[0].__class__)
@@ -53,9 +59,8 @@ class GildedRoseTest(unittest.TestCase):
         items = [TicketItem("Backstage passes to DragonForce", 10, 10)]
         self.assertEquals(TicketItem, items[0].__class__)
 
-
     def test_can_create_legendary_item(self):
-        items = [LegendaryItem("Greatsword of Bigness", 10, 10)]
+        items = [LegendaryItem("Greatsword of Bigness", 10)]
         self.assertEquals(LegendaryItem, items[0].__class__)
 
 if __name__ == '__main__':
