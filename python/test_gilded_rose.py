@@ -60,8 +60,17 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEquals(TicketItem, items[0].__class__)
 
     def test_can_create_legendary_item(self):
-        items = [LegendaryItem("Greatsword of Bigness", 10)]
+        base_item = Item("Sulfuras Greatsword of Bigness", 10, 30)
+        items = [LegendaryItem(base_item)]
         self.assertEquals(LegendaryItem, items[0].__class__)
+
+    def test_inspect_item_can_identify_legendary_item(self):
+        item = Item("Sulfuras helmet of cranial blade deflection", 5, 10)
+        gilded_rose = GildedRose([item])
+        item = gilded_rose.inspect_item(item)
+        print(item)
+        print("testMarker")
+        self.assertEquals(LegendaryItem, item.__class__)
 
 if __name__ == '__main__':
     unittest.main()

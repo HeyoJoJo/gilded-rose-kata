@@ -5,6 +5,18 @@ class GildedRose(object):
     def __init__(self, items):
         self.items = items
 
+    def inspect_item(self, item):
+
+        if 'Sulfuras' in item.name:
+            print("Legendary gear!")
+            return LegendaryItem(item)
+
+        # if 'Backstage' in item.name:
+        #     print("Backstage pass to a show!")
+        #     return TicketItem(item.name)
+
+
+
     def add_quality(self, item, amount = 1):
         print("adding " + str(amount) + " quality to " + item.name)
         item.quality += amount
@@ -23,6 +35,9 @@ class GildedRose(object):
         # Main event loop
         for item in self.items:
             print(item)
+            # determine class to duck type to
+
+            # update according to class
         # TODO: Lots of routing
 
 
@@ -61,7 +76,7 @@ class TicketItem(AgedItem):
         self.quality = quality
 
 class LegendaryItem(Item):
-    def __init__(self, name, sell_in):
-        self.name = name
-        self.sell_in = sell_in
+    def __init__(self, item):
+        self.name = item.name
+        self.sell_in = item.sell_in
         self.quality = 80
