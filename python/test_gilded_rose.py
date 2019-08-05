@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from gilded_rose import Item, GildedRose, CommonItem, AgedItem, TicketItem, LegendaryItem
+from gilded_rose import Item, GildedRose, CommonItem, AgedItem, TicketItem, LegendaryItem, ConjuredItem
 
 class GildedRoseTest(unittest.TestCase):
 
@@ -48,7 +48,8 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEquals(0, items[0].quality)
 
     def test_can_create_common_item(self):
-        items = [CommonItem("Health Potion(medium)", 10, 10)]
+        base_item = Item("Health Potion(medium)", 10, 10)
+        items = [CommonItem(base_item)]
         self.assertEquals(CommonItem, items[0].__class__)
 
     def test_can_create_aged_item(self):
@@ -79,10 +80,22 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEquals(AgedItem, item.__class__)
 
     def test_inspect_item_can_identify_ticket_item(self):
-        item = Item("Backstage passes to William of Pump", 5, 10)
+        item = Item("Backstage passes to William of Pump", 10, 10)
         gilded_rose = GildedRose([item])
         item = gilded_rose.inspect_item(item)
         self.assertEquals(TicketItem, item.__class__)
+    
+    def test_inspect_item_can_identify_conjured_item(self):
+        item = Item("Conjured enchanted club of bonking", 10, 10)
+        gilded_rose = GildedRose([item])
+        item = gilded_rose.inspect_item(item)
+        self.assertEquals(ConjuredItem, item.__class__)
+
+    def test_inspect_item_can_identify_common_item(self):
+        item = Item("Wyvern wings with buffalo sauce", 10, 10)
+        gilded_rose = GildedRose([item])
+        item = gilded_rose.inspect_item(item)
+        self.assertEquals(CommonItem, item.__class__)
 
 if __name__ == '__main__':
     unittest.main()

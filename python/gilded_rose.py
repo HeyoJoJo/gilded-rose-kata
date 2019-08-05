@@ -15,10 +15,16 @@ class GildedRose(object):
             print("Aged Item!")
             return AgedItem(item)
 
-        # if 'Backstage' in item.name:
-        #     print("Backstage pass to a show!")
-        #     return TicketItem(item.name)
+        if 'Backstage' in item.name:
+            print("Backstage pass to a show!")
+            return TicketItem(item)
 
+        if 'Conjured' in item.name:
+            print("Conjured Item!")
+            return ConjuredItem(item)
+        
+        else:
+            return CommonItem(item)
 
 
     def add_quality(self, item, amount = 1):
@@ -36,10 +42,14 @@ class GildedRose(object):
         print("quality of " + item.name + " is now " + str(item.quality))
 
     def update_quality(self):
+        # See if we've already identified item types
+        if(self.items[0].__class__ == Item):
+            for item in self.items:
+                item = self.inspect_item(item)
+
         # Main event loop
         for item in self.items:
-            print(item)
-            # determine class to duck type to
+            print('we will do something here eventually')
 
             # update according to class
         # TODO: Lots of routing
@@ -56,10 +66,10 @@ class Item:
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
 
 class CommonItem(Item):
-    def __init__(self, name, sell_in, quality):
-        self.name = name
-        self.sell_in = sell_in
-        self.quality = quality
+    def __init__(self, item):
+        self.name = item.name
+        self.sell_in = item.sell_in
+        self.quality = item.quality
 
 class AgedItem(Item):
     def __init__(self, item):
@@ -68,16 +78,16 @@ class AgedItem(Item):
         self.quality = item.quality
 
 class ConjuredItem(Item):
-    def __init__(self, name, sell_in, quality):
-        self.name = name
-        self.sell_in = sell_in
-        self.quality = quality
+    def __init__(self, item):
+        self.name = item.name
+        self.sell_in = item.sell_in
+        self.quality = item.quality
 
-class TicketItem(AgedItem):
-    def __init__(self, name, sell_in, quality):
-        self.name = name
-        self.sell_in = sell_in
-        self.quality = quality
+class TicketItem(Item):
+    def __init__(self, item):
+        self.name = item.name
+        self.sell_in = item.sell_in
+        self.quality = item.quality
 
 class LegendaryItem(Item):
     def __init__(self, item):
