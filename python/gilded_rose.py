@@ -28,31 +28,68 @@ class GildedRose(object):
 
 
     def add_quality(self, item, amount = 1):
-        print("adding " + str(amount) + " quality to " + item.name)
+        double = (item.sell_in <= 0) & (item.__class__ == AgedItem)
+        
+        if(double):
+            amount = amount * 2
+
         item.quality += amount
         if(item.quality > 50):
             item.quality = 50
-        print("quality of " + item.name + " is now " + str(item.quality))
 
     def decrease_quality(self, item, amount = 1):
-        print("decreasing quality of " + item.name + " by " + str(amount))
+        double = item.sell_in <= 0
+        if(double):
+            amount = amount * 2
         item.quality -= amount
+
         if(item.quality < 0):
             item.quality = 0
-        print("quality of " + item.name + " is now " + str(item.quality))
+    
+    def decrease_sell_date(self, item):
+        print("one less day to sell " + item.name)
+        item.sell_in -= 1
+    
+    def void_quality(self, item):
+        print("This sat for too long!!!")
+        item.quality = 0
 
     def update_quality(self):
         # See if we've already identified item types
         if(self.items[0].__class__ == Item):
+            new_list = []
             for item in self.items:
                 item = self.inspect_item(item)
+                print("item typed")
+                print(item.__class__)
+                new_list.append(item)
+            self.items = new_list
 
         # Main event loop
+        print(self.items)
         for item in self.items:
-            print('we will do something here eventually')
 
-            # update according to class
-        # TODO: Lots of routing
+            if(item.__class__ == AgedItem):
+                self.add_quality(item)
+                self.decrease_sell_date(item)
+
+            if(item.__class__ == CommonItem):
+                self.decrease_quality(item)
+                self.decrease_sell_date(item)
+
+            if(item.__class__ == TicketItem):
+                print('we will do something with Ticket items eventually')
+
+            if(item.__class__ == ConjuredItem):
+                self.decrease_quality(item, 2)
+                self.decrease_sell_date(item)
+
+            if(item.__class__ == LegendaryItem):
+                print('Items of this exalted status require no book keeping')
+            
+            print(self.items)
+
+        return self.items
 
 
 #### CLASS DECS
