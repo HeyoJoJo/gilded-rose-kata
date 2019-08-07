@@ -97,6 +97,7 @@ class GildedRose(object):
                 elif item.sell_in <= 10:
                     add_quality(item, 2)
 
+
                 else:
                     add_quality(item)
 
@@ -122,7 +123,7 @@ class Item:
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
 
 class CommonItem(Item):
-    """It extends el goblinos Item class.
+    """It just wraps el goblinos Item class.
     I don't know what else to tell you."""
     def __init__(self, item):
         self.name = item.name

@@ -14,68 +14,57 @@ class GildedRoseTest(unittest.TestCase):
 
     def test_decrease_sell_date(self):
         item = Item("clothes of body concealment", 10, 10)
-        gilded_rose = GildedRose(item)
         decrease_sell_date(item)
         self.assertEquals(9, item.sell_in)
 
     def test_void_quality(self):
         item = Item("unused backstage pass", 0, 50)
-        gilded_rose = GildedRose([item])
         void_quality(item)
         self.assertEquals(0, item.quality)
     
     def test_add_quality_default(self):
         items = [Item("Potion of speed plus 1", 0, 0)]
-        gilded_rose = GildedRose(items)
         add_quality(items[0])
         self.assertEquals(1, items[0].quality)
 
     def test_add_quality_by_non_default_amount(self):
         items = [Item("Mithril Helm plus 5", 0, 0)]
-        gilded_rose = GildedRose(items)
         add_quality(items[0], 5)
         self.assertEquals(5, items[0].quality)
 
     def test_add_quality_cannot_exceed_50(self):
         items = [Item("Very valuable mace", 0, 49)]
-        gilded_rose = GildedRose(items)
         add_quality(items[0], 500)
         self.assertEquals(50, items[0].quality)
     
     def test_add_aged_item_quality_doubles_after_sell_date(self):
         base_item = Item("Aged coca cola classic", -1, 10)
         aged_item = AgedItem(base_item)
-        gilded_rose = GildedRose([aged_item])
         add_quality(aged_item)
         self.assertEquals(12, aged_item.quality)
 
     def test_remove_quality_default(self):
         items = [Item("Iron Shield", 10, 10)]
-        gilded_rose = GildedRose(items)
         decrease_quality(items[0])
         self.assertEquals(9, items[0].quality)
 
     def test_remove_quality_non_default_amount(self):
         items = [Item("Almost rotten apple", 0, 10)]
-        gilded_rose = GildedRose(items)
         decrease_quality(items[0], 5)
         self.assertEquals(5, items[0].quality)
 
     def test_remove_quality_non_default_amount(self):
         items = [Item("Completely rotten apple", 0, 2)]
-        gilded_rose = GildedRose(items)
         decrease_quality(items[0], 50)
         self.assertEquals(0, items[0].quality)
     
     def test_remove_quality_on_sell_by_date(self):
         item = Item("Apple on the sell by date", 0 , 5)
-        gilded_rose = GildedRose([item])
         decrease_quality(item)
         self.assertEquals(3, item.quality)
     
     def test_remove_quality_on_sell_by_date(self):
         item = Item("Apple after the sell by date", -1 , 3)
-        gilded_rose = GildedRose([item])
         decrease_quality(item)
         self.assertEquals(1, item.quality)
 
