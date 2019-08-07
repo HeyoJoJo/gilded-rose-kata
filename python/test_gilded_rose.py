@@ -105,7 +105,7 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEquals(80, items[0].quality)
 
     def test_inspect_item_can_identify_legendary_item(self):
-        item = Item("Sulfuras helmet of cranial blade deflection", 5, 10)
+        item = Item("Sulfuras, helmet of cranial blade deflection", 5, 10)
         gilded_rose = GildedRose([item])
         item = gilded_rose.inspect_item(item)
         self.assertEquals(LegendaryItem, item.__class__)

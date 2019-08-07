@@ -6,6 +6,7 @@ class GildedRose(object):
 
     def __init__(self, items):
         self.items = items
+        self.special_types = ["Aged", "Conjured", "Sulfuras,", "Backstage"]
 
     def inspect_item(self, item):
         """Inspects an item and assigns a class to it
@@ -13,17 +14,16 @@ class GildedRose(object):
         since I can't modify Gob's class [eyeroll emoji]
         It's basically just the adapter pattern."""
 
-        if 'Sulfuras' in item.name:
-            return LegendaryItem(item)
-        if 'Aged' in item.name:
-            return AgedItem(item)
-        if 'Backstage' in item.name:
-            return TicketItem(item)
-        if 'Conjured' in item.name:
-            return ConjuredItem(item)
+        item_type = item.name.split(' ')[0]
+        if item_type in self.special_types:
+            return {
+                "Aged": AgedItem(item),
+                "Sulfuras,": LegendaryItem(item),
+                "Backstage": TicketItem(item),
+                "Conjured": ConjuredItem(item)
+            }[item_type]
         else:
             return CommonItem(item)
-
 
     def add_quality(self, item, amount=1):
         """ Adds quality to an item, unless it is at max
