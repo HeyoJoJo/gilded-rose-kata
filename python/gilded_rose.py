@@ -1,6 +1,43 @@
 # -*- coding: utf-8 -*-
 """Docstring so that pylint stops whining"""
 
+def add_quality(item, amount=1):
+    """ Adds quality to an item, unless it is at max
+    value of 50 already. Default amount is 1."""
+
+    double = (item.sell_in <= 0) & (item.__class__ == AgedItem)
+
+    if double:
+        amount = amount * 2
+
+    item.quality += amount
+    if item.quality > 50:
+        item.quality = 50
+
+def decrease_quality(item, amount=1):
+    """Decreases quality, unless it is already at zero.
+    Default amount is 1."""
+
+    double = item.sell_in <= 0
+    if double:
+        amount = amount * 2
+    item.quality -= amount
+
+    if item.quality < 0:
+        item.quality = 0
+
+def decrease_sell_date(item):
+    """Decreases sell date of an item by 1.
+    Do not extend! Time magic is illegal!"""
+
+    item.sell_in -= 1
+
+def void_quality(item):
+    """Sets the quality of an item to zero."""
+
+    item.quality = 0
+
+
 class GildedRose(object):
     """An inn where we sell stuff!"""
 
@@ -25,42 +62,6 @@ class GildedRose(object):
         else:
             return CommonItem(item)
 
-    def add_quality(self, item, amount=1):
-        """ Adds quality to an item, unless it is at max
-        value of 50 already. Default amount is 1."""
-
-        double = (item.sell_in <= 0) & (item.__class__ == AgedItem)
-
-        if double:
-            amount = amount * 2
-
-        item.quality += amount
-        if item.quality > 50:
-            item.quality = 50
-
-    def decrease_quality(self, item, amount=1):
-        """Decreases quality, unless it is already at zero.
-        Default amount is 1."""
-
-        double = item.sell_in <= 0
-        if double:
-            amount = amount * 2
-        item.quality -= amount
-
-        if item.quality < 0:
-            item.quality = 0
-
-    def decrease_sell_date(self, item):
-        """Decreases sell date of an item by 1.
-        Do not extend! Time magic is illegal!"""
-
-        item.sell_in -= 1
-
-    def void_quality(self, item):
-        """Sets the quality of an item to zero."""
-
-        item.quality = 0
-
     def update_quality(self):
         """Basically the main event loop,
         inspects all items in self.items and
@@ -77,32 +78,32 @@ class GildedRose(object):
         for item in self.items:
 
             if item.__class__ == AgedItem:
-                self.add_quality(item)
-                self.decrease_sell_date(item)
+                add_quality(item)
+                decrease_sell_date(item)
 
             if item.__class__ == CommonItem:
-                self.decrease_quality(item)
-                self.decrease_sell_date(item)
+                decrease_quality(item)
+                decrease_sell_date(item)
 
             if item.__class__ == TicketItem:
-                self.decrease_sell_date(item)
+                decrease_sell_date(item)
 
                 if item.sell_in <= 0:
-                    self.void_quality(item)
+                    void_quality(item)
 
                 elif item.sell_in <= 5:
-                    self.add_quality(item, 3)
+                    add_quality(item, 3)
 
                 elif item.sell_in <= 10:
-                    self.add_quality(item, 2)
+                    add_quality(item, 2)
 
                 else:
-                    self.add_quality(item)
+                    add_quality(item)
 
 
             if item.__class__ == ConjuredItem:
-                self.decrease_quality(item, 2)
-                self.decrease_sell_date(item)
+                decrease_quality(item, 2)
+                decrease_sell_date(item)
 
             if item.__class__ == LegendaryItem:
                 pass
