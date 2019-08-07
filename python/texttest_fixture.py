@@ -27,4 +27,10 @@ if __name__ == "__main__":
         for item in items:
             print(item)
         print("")
-        GildedRose(items).update_quality()
+        items = GildedRose(items).update_quality()
+
+        print("-------- day %s --------" % day)
+        print("name, sellIn, quality")
+        for item in items:
+            print(item)
+        print("")

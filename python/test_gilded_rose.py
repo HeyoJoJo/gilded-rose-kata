@@ -188,6 +188,32 @@ class GildedRoseTest(unittest.TestCase):
         updated_items = gilded_rose.update_quality()
         self.assertEquals(1, updated_items[0].quality)
 
+    def test_update_quality_concert_ticket_default(self):
+        item = Item("Backstage passes to hatsune miku", 12, 10)
+        gilded_rose = GildedRose([item])
+        updated_items = gilded_rose.update_quality()
+        self.assertEquals(11, updated_items[0].quality)
+        
+    def test_update_quality_concert_ticket_ten_days_left(self):
+        item = Item("Backstage passes to hatsune miku", 10, 20)
+        gilded_rose = GildedRose([item])
+        updated_items = gilded_rose.update_quality()
+        print(updated_items)
+        self.assertEquals(22, updated_items[0].quality)
+    
+    def test_update_ticket_five_or_fewer_days_left(self):
+        item = Item("Backstage passes but hatsune is a dragon now", 5, 30)
+        gilded_rose = GildedRose([item])
+        updated_items = gilded_rose.update_quality()
+        print(updated_items)
+        self.assertEquals(33, updated_items[0].quality)
+
+    def test_update_expired_ticket(self):
+        item = Item("Backstage passes but hatsune is a dragon now", 0, 40)
+        gilded_rose = GildedRose([item])
+        updated_items = gilded_rose.update_quality()
+        print(updated_items)
+        self.assertEquals(0, updated_items[0].quality)
 
 if __name__ == '__main__':
     unittest.main()

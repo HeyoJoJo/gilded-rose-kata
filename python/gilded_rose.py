@@ -66,7 +66,6 @@ class GildedRose(object):
             self.items = new_list
 
         # Main event loop
-        print(self.items)
         for item in self.items:
 
             if(item.__class__ == AgedItem):
@@ -78,7 +77,20 @@ class GildedRose(object):
                 self.decrease_sell_date(item)
 
             if(item.__class__ == TicketItem):
-                print('we will do something with Ticket items eventually')
+                self.decrease_sell_date(item)
+
+                if(item.sell_in <= 0):
+                    self.void_quality(item)
+
+                elif(item.sell_in <= 5):
+                    self.add_quality(item, 3)
+
+                elif(item.sell_in <= 10):
+                    self.add_quality(item, 2)
+
+                else:
+                    self.add_quality(item)
+
 
             if(item.__class__ == ConjuredItem):
                 self.decrease_quality(item, 2)
@@ -86,8 +98,6 @@ class GildedRose(object):
 
             if(item.__class__ == LegendaryItem):
                 print('Items of this exalted status require no book keeping')
-            
-            print(self.items)
 
         return self.items
 
