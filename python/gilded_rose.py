@@ -8,19 +8,15 @@ class GildedRose(object):
     def inspect_item(self, item):
 
         if 'Sulfuras' in item.name:
-            print("Legendary gear!")
             return LegendaryItem(item)
         
         if 'Aged' in item.name:
-            print("Aged Item!")
             return AgedItem(item)
 
         if 'Backstage' in item.name:
-            print("Backstage pass to a show!")
             return TicketItem(item)
 
         if 'Conjured' in item.name:
-            print("Conjured Item!")
             return ConjuredItem(item)
         
         else:
@@ -47,11 +43,9 @@ class GildedRose(object):
             item.quality = 0
     
     def decrease_sell_date(self, item):
-        print("one less day to sell " + item.name)
         item.sell_in -= 1
     
     def void_quality(self, item):
-        print("This sat for too long!!!")
         item.quality = 0
 
     def update_quality(self):
@@ -60,8 +54,6 @@ class GildedRose(object):
             new_list = []
             for item in self.items:
                 item = self.inspect_item(item)
-                print("item typed")
-                print(item.__class__)
                 new_list.append(item)
             self.items = new_list
 
@@ -97,7 +89,7 @@ class GildedRose(object):
                 self.decrease_sell_date(item)
 
             if(item.__class__ == LegendaryItem):
-                print('Items of this exalted status require no book keeping')
+                pass
 
         return self.items
 

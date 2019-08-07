@@ -28,9 +28,3 @@ if __name__ == "__main__":
             print(item)
         print("")
         items = GildedRose(items).update_quality()
-
-        print("-------- day %s --------" % day)
-        print("name, sellIn, quality")
-        for item in items:
-            print(item)
-        print("")
