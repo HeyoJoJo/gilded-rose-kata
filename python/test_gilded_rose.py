@@ -138,24 +138,18 @@ class GildedRoseTest(unittest.TestCase):
         item = Item("Aged dragon heart", 0, 20)
         gilded_rose = GildedRose([item])
         updated_items = gilded_rose.update_quality()
-        print(updated_items[0])
-        print(updated_items[0].__class__)
         self.assertGreater(updated_items[0].quality, 20)
 
     def test_update_quality_should_hit_max_quality_aged_item(self):
         item = Item("Aged dragon heart", -10, 49)
         gilded_rose = GildedRose([item])
         updated_items = gilded_rose.update_quality()
-        print(updated_items[0])
-        print(updated_items[0].__class__)
         self.assertEquals(50, updated_items[0].quality)
     
     def test_update_quality_should_decrease_sell_date(self):
         item = Item("Aged dragon heart", -10, 49)
         gilded_rose = GildedRose([item])
         updated_items = gilded_rose.update_quality()
-        print(updated_items[0])
-        print(updated_items[0].__class__)
         self.assertEquals(-11, updated_items[0].sell_in)
 
     def test_update_quality_common_item_decrease_quality(self):
@@ -198,21 +192,18 @@ class GildedRoseTest(unittest.TestCase):
         item = Item("Backstage passes to hatsune miku", 10, 20)
         gilded_rose = GildedRose([item])
         updated_items = gilded_rose.update_quality()
-        print(updated_items)
         self.assertEquals(22, updated_items[0].quality)
     
     def test_update_ticket_five_or_fewer_days_left(self):
         item = Item("Backstage passes but hatsune is a dragon now", 5, 30)
         gilded_rose = GildedRose([item])
         updated_items = gilded_rose.update_quality()
-        print(updated_items)
         self.assertEquals(33, updated_items[0].quality)
 
     def test_update_expired_ticket(self):
         item = Item("Backstage passes but hatsune is a dragon now", 0, 40)
         gilded_rose = GildedRose([item])
         updated_items = gilded_rose.update_quality()
-        print(updated_items)
         self.assertEquals(0, updated_items[0].quality)
 
 if __name__ == '__main__':
